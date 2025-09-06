@@ -1,0 +1,97 @@
+% Created 2025-09-06 Sat 12:57
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\author{Stephen}
+\date{\today}
+\title{To-Do List Application}
+\hypersetup{
+ pdfauthor={Stephen},
+ pdftitle={},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 30.2 (Org mode 9.7.11)}, 
+ pdflang={English}}
+\begin{document}
+\maketitle
+
+\tableofcontents
+
+\pagebreak
+\section{ A Simple Design Document}
+\label{sec:org72ed0f9}
+
+\section{Introduction}
+\label{sec:org65bcd96}
+
+This document outlines the high-level design for a simple command-line interface (CLI) to-do list application.
+The application will serve as a foundational tool for a single user to manage, track, and filter their daily tasks.
+The design will follow a modular approach, separating core business logic from the user interface.
+\subsection{Core Features}
+\label{sec:org29f956b}
+
+The application will support the following key features:
+
+Task Management:
+\begin{enumerate}
+\item Adding a new task with a description and a due date.
+\item Marking an existing task as complete.
+\item Deleting a task by its unique identifier.
+\end{enumerate}
+
+Task Viewing:
+\begin{enumerate}
+\item Listing all tasks in a human-readable, formatted string.
+\item Filtering tasks to show only those that are completed or incomplete.
+\end{enumerate}
+\section{Data Model}
+\label{sec:orgb19c8a8}
+
+The application's state will be managed by a TodoManager struct, which contains a collection of Task structs.
+The data model is as follows:
+
+\subsection{Task}
+A Task represents a single to-do item.
+
+\begin{enumerate}
+\item ID (int): A unique identifier for the task.
+\item Description (string): The description of the task.
+\item Completed (bool): A boolean flag indicating whether the task is complete.
+\item DueDate (time.Time): The due date of the task.
+\end{enumerate}
+
+\subsection{TodoManager}
+
+The TodoManager holds and manages all tasks.
+
+\begin{enumerate}
+\item tasks (map[int]*Task): A map that stores pointers to Task structs, with the task ID as the key.
+\end{enumerate}
+This allows for efficient lookup and modification.
+
+\begin{enumerate}
+\item count (int): An integer to generate new, unique task IDs.
+\end{enumerate}
+\section{Architectural Considerations}
+\label{sec:org21f8ae5}
+The application will follow a clear separation of concerns:
+\subsubsection{Business Logic:}
+\label{sec:orgd1d484b}
+The TodoManager and Task structs handle all core logic, such as adding, completing, and filtering tasks.
+This logic is fully tested via the TDD process.
+\subsubsection{User Interface:}
+\label{sec:org3c922a5}
+A separate main function (not yet implemented) will handle user input from the command line and display output
+by calling the business logic methods. This keeps the core logic clean and testable, independent of how the user
+interacts with it.
+\end{document}
